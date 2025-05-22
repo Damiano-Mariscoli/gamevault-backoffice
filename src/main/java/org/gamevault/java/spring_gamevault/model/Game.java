@@ -2,11 +2,18 @@ package org.gamevault.java.spring_gamevault.model;
 
 
 import java.time.LocalDate;
+import java.util.List;
+
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,6 +40,10 @@ private String publisher;
 
 
 private String gameImg;
+ 
+@ManyToMany
+@JoinTable(name = "game_platform" , joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name="platform_id"))
+private List <Platform> platforms;
 
 
     @Override
@@ -127,5 +138,17 @@ private String gameImg;
     
 
 
+    /**
+     * @return List<Platform> return the platforms
+     */
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
 
+    /**
+     * @param platforms the platforms to set
+     */
+    public void setPlatforms(List<Platform> platforms) {
+        this.platforms = platforms;
+    }
 }

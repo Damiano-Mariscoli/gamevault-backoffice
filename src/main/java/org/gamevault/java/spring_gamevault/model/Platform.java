@@ -1,10 +1,13 @@
 package org.gamevault.java.spring_gamevault.model;
 
+import java.util.List;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,6 +23,10 @@ public class Platform {
     @NotNull
     private String name;
 
+
+    @ManyToMany(mappedBy = "platforms")
+
+    private List <Game> games;
     
 
     /**
