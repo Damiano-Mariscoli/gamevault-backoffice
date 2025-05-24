@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Create Pizza</title>
+  </head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container">
+      <div class="row">
+        <div class="col-12">
+          <th:block>
+            <h1 class="text-center py-4 mb-2">Add new Game</h1>
+
+            <div class="row justify-content-center">
+              <div class="col-8">
+                <form class="form" th:action="${edit} ? @{/games/edit/{id}(id = ${game.id})} : @{/ingredienti/create}" th:object="${game}" method="post" id="formGame">
+                  <!-- <div th:if="${#fields.hasErrors()}">
+                    <ul class="alert alert-danger px-4">
+                      <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+                      </li>
+                    </ul>
+                  </div> -->
+                  <div class="mb-3">
+                    <label class="form-lable" for="title">Nome:</label>
+                    <input class="form-control" type="text" id="title" th:field="${game.title}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                      <ul>
+                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}" > </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class=" form-check" th:each="category : ${category}">
+                      <input type="checkbox" th:id="|category-${category.id}|" th:field="${pizze.categories}" th:value="${category.id}">
+                      <label th:for="|category-${category.id}|" class="form-check-label" th:text="${category.nome}"></label>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-lable" for="description">Descrizione:</label>
+                    <textarea id="description" class="form-control" th:field="*{description}" th:errorClass="is-invalid"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                      <ul>
+                        <li th:each="error : ${#fields.errors('description')}" th:text="${error}" > </li>
+
+                      </ul>
+                    </div>
+                  </div>
+
+                   <div class="mb-3">
+                    <label class="form-lable" for="release-date">Release Date</label>
+                    <input class="form-control" type="date" id="release-date" th:field="*{releaseDate}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('releaseDate')}">
+                      <ul>
+                        <li th:each="error : ${#fields.errors('releaseDate')}" th:text="${error}" > </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-lable" for="gameImg">Foto(url):</label>
+                    <input class="form-control" type="text" id="gameImg" th:field="*{gameImg}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('gameImg')}">
+                      <ul>
+                        <li th:each="error : ${#fields.errors('gameImg')}" th:text="${error}" > </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-lable" for="publisher">Publisher:</label>
+                    <input class="form-control" type="text" min="0" id="publisher" th:field="*{publisher}" th:errorClass="is-invalid" step=".01">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('publisher')}">
+                      <ul>
+                        <li th:each="error : ${#fields.errors('publisher')}" th:text="${error}" > </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="my-3 d-flex justify-content-between">
+                   <input type="submit" class="btn btn-primary" value="Create new game">
+                   <input type="reset" class="btn btn-warning" value="Reset all fields" form="formPizza">
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </th:block>
+        </div>
+      </div>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+  </body>
+</html>

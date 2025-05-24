@@ -76,7 +76,7 @@ public class GameController {
    public String create(Model model){
      model.addAttribute("game", new Game());
    
-     return "games/create";
+     return "games/create-or-edit";
    }
 
    @PostMapping("/create")
@@ -84,17 +84,18 @@ public class GameController {
 
      
     if (bindingResult.hasErrors()){
-      return "games/create";
+      return "games/create-or-edit";
     }
     gameRepo.save(formGame);
      return "redirect:/games";
    }
 
    @GetMapping("/edit/{id}")
-   public String edit(@PathVariable Integer id, Model model ){
-     model.addAttribute(gameRepo.findById(id));
+   public String edit(@PathVariable Integer id, Model model) {
+     model.addAttribute("game", gameRepo.findById(id).get());
+     model.addAttribute("edit", true);
     
-     return "games/edit";
+     return "games/create-or-edit";
    }
 
    @PostMapping("/edit/{id}")
