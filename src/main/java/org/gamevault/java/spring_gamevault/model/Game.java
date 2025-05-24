@@ -46,6 +46,11 @@ private String gameImg;
 private List <Platform> platforms;
 
 
+@ManyToMany
+@JoinTable(name="category_game" , joinColumns = @JoinColumn(name="category_id"), inverseJoinColumns = @JoinColumn(name="game_id"))
+private List <Category> categories;
+
+
     @Override
     public String toString(){
         return String.format( "%d %s %s %s %s %s",this.id, this.title ,this.description, releaseDate,  this.publisher, this.gameImg);
@@ -151,4 +156,19 @@ private List <Platform> platforms;
     public void setPlatforms(List<Platform> platforms) {
         this.platforms = platforms;
     }
+
+    /**
+     * @return List<Category> return the categories
+     */
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    /**
+     * @param categories the categories to set
+     */
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
 }

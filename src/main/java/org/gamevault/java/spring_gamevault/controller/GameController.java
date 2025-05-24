@@ -3,10 +3,13 @@ package org.gamevault.java.spring_gamevault.controller;
 
 
 import java.util.List;
+import java.util.Locale.Category;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.gamevault.java.spring_gamevault.model.Game;
 import org.gamevault.java.spring_gamevault.model.Platform;
+import org.gamevault.java.spring_gamevault.repo.CategoryRepo;
 import org.gamevault.java.spring_gamevault.repo.GameRepo;
 import org.gamevault.java.spring_gamevault.repo.PlatformRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +38,14 @@ public class GameController {
     @Autowired
     private PlatformRepo platformRepo;
 
+    @Autowired
+    private CategoryRepo categoryRepo;
+
     @GetMapping
     public String index(Model model){
         List <Game> games = gameRepo.findAll();
         model.addAttribute("games", games);
+        model.addAttribute("categories", categoryRepo.findAll());
         return "games/index";
     } 
 
@@ -55,8 +62,15 @@ public class GameController {
     List <Game> games = gameRepo.findByTitleContaining(title);
     model.addAttribute("games", games);
     return "games/index";
-
    }
+
+   @GetMapping("/searchByCategory")
+   public String searchByCategory(@RequestParam() Integer id, Model model){
+     List <Game> games = gameRepo.findByCategoriesId(id);
+     model.addAttribute("games", games);
+     return "games/index";
+   }
+
    
    @GetMapping("/create")
    public String create(Model model){

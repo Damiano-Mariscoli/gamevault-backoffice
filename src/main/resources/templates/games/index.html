@@ -7,9 +7,35 @@
   <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
     <div class="container p-0">
+      <!-- src/main/resources/templates/games/index.html -->
+      <!-- ... -->
+      <form class="d-flex" th:action="@{/games/searchByCategory}" method="get">
+        <div th:each="category : ${categories}">
+          <input
+            type="checkbox"
+            name="id"
+            th:value="${category.id}"
+            th:text="${category.name}"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Cerca</button>
+      </form>
+      <!-- ... -->
+      <div class="search-container">
+        <form class="d-flex" th:action="@{/games/searchByTitle}" method="get">
+          <input
+            type="text"
+            name="title"
+            class="form-control"
+            placeholder="Cerca gioco nel catalogo..."
+          />
+          <button type="submit" class="btn btn-primary">Cerca</button>
+        </form>
+      </div>
       <h1>Games List:</h1>
       <hr />
       <div class="row">
+        <p>[[${games.size()}]]</p>
         <th:block th:each="game : ${games}">
           <div class="col-2 d-flex justify-content-center">
             <div th:replace="~{fragments/card :: card(game=${game})}"></div>
