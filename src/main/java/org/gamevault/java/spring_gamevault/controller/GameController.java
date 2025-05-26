@@ -8,7 +8,7 @@ import java.util.Locale.Category;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.gamevault.java.spring_gamevault.model.Game;
-import org.gamevault.java.spring_gamevault.model.Platform;
+
 import org.gamevault.java.spring_gamevault.repo.CategoryRepo;
 import org.gamevault.java.spring_gamevault.repo.GameRepo;
 import org.gamevault.java.spring_gamevault.repo.PlatformRepo;
