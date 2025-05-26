@@ -40,12 +40,14 @@
             >
               Edit
             </a>
-            <a
-              th:href="@{/games/delete/{id}(id = ${game.id})}"
-              class="btn btn-outline-danger btn-sm rounded-pill w-100"
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              data-bs-toggle="modal"
+              th:data-bs-target="'#delete-modal-' + ${game.id}"
             >
               Delete
-            </a>
+            </button>
           </div>
         </div>
       </a>

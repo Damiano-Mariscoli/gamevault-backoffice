@@ -53,8 +53,8 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Ingredient Name</th>
-                <th>Number of Pizzas</th>
+                <th>Category Name</th>
+                <th>Games per Categories</th>
                 <th></th>
                 <th sec:authorize="hasAuthority('ADMIN')"></th>
                 <th sec:authorize="hasAuthority('ADMIN')"></th>
@@ -93,40 +93,43 @@
                     class="modal fade"
                     th:id="'delete-modal-' + ${category.id}"
                     tabindex="-1"
-                    aria-labelledby="delete-modal"
+                    th:attr="aria-labelledby=${'delete-modal-label-' + category.id}"
                     aria-hidden="true"
                   >
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">
-                            You are deleting category: [[*{name}]]
-                          </h1>
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content custom-modal-dark">
+                        <div class="modal-header border-0">
+                          <h5
+                            class="modal-title text-lime"
+                            th:id="'delete-modal-label-' + ${category.id}"
+                          >
+                            Delete Category
+                          </h5>
                           <button
                             type="button"
-                            class="btn-close"
+                            class="btn-close btn-close-white"
                             data-bs-dismiss="modal"
                             aria-label="Close"
                           ></button>
                         </div>
-                        <div class="modal-body">
-                          Are you sure you want to delete category: [[*{name}]]?
+                        <div class="modal-body text-white">
+                          Are you sure you want to delete the category:
+                          <strong th:text="${category.name}"></strong>?
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer border-0">
                           <button
                             type="button"
                             class="btn btn-secondary"
                             data-bs-dismiss="modal"
                           >
-                            Close
+                            Back
                           </button>
                           <form
-                            action="#"
                             th:action="@{/categories/delete/{id}(id=${category.id})}"
                             method="post"
                           >
-                            <button type="submit" class="btn btn-danger">
-                              Delete
+                            <button type="submit" class="btn btn-lime">
+                              Confirm
                             </button>
                           </form>
                         </div>
@@ -140,7 +143,7 @@
         </div>
 
         <p th:unless="${categories.size() > 0}">
-          No categories present in our application...
+          No categories present in our database...
         </p>
       </section>
     </main>

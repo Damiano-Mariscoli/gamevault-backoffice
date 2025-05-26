@@ -81,7 +81,7 @@ nav a {
 
 
 /*Regole di spacing */
- .spacing{
+.spacing{
         margin-bottom: 70px;
         padding-top: 300px;
       }
@@ -103,3 +103,27 @@ nav a {
   --bs-table-color: white;
 }
 
+/* Css per modale */
+.custom-modal-dark {
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid limegreen;
+}
+
+.text-lime {
+  color: limegreen;
+}
+
+.btn-lime {
+  background-color: limegreen;
+  color: black;
+  border: none;
+}
+
+/*home css */
+
+.btn-lime:hover {
+  background-color: #aaff00;
+  color: black;
+}

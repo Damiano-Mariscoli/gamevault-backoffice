@@ -67,6 +67,7 @@ public class GameController {
 
    @GetMapping("/searchByCategory")
    public String searchByCategory(@RequestParam() Integer id, Model model){
+    
      List <Game> games = gameRepo.findByCategoriesId(id);
      model.addAttribute("categories", categoryRepo.findAll());
      model.addAttribute("games", games);
@@ -107,7 +108,7 @@ public class GameController {
 
      
     if (bindingResult.hasErrors()){
-      return "games/edit";
+      return "games/create-or-edit";
     }
     gameRepo.save(formGame);
      return "redirect:/games";
@@ -115,10 +116,7 @@ public class GameController {
 
    @PostMapping("/delete/{id}")
    public String delete(@PathVariable Integer id){
-
-    Game game = gameRepo.findById(id).get();
-    gameRepo.delete(game);
-
+    gameRepo.deleteById(id);
     return "redirect:/games";
    }
 

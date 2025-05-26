@@ -60,10 +60,13 @@
             ></span>
             <span class="text-white me-2">Roles:</span>
             <span
-              sec:authentication="principal.authorities"
-              class="fst-italic me-3 text-lime"
-              style="color: #a4ff00"
-            ></span>
+              ><span
+                sec:authentication="principal.authorities"
+                class="fst-italic me-3 text-lime"
+                style="color: #a4ff00"
+              >
+              </span>
+            </span>
             <a class="btn btn-outline-light btn-sm" href="/logout">Sign out</a>
           </div>
         </div>

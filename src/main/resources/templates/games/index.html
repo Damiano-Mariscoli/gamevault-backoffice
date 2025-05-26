@@ -5,14 +5,15 @@
 
     <link rel="stylesheet" th:href="@{/css/card.css}" />
     <link rel="stylesheet" th:href="@{/css/index.css}" />
-
     <link rel="stylesheet" th:href="@{/css/global.css}" />
 
     <title>Games</title>
   </head>
   <body>
     <div class="my-5" th:replace="~{fragments/navbar :: navbar}"></div>
+
     <div class="container py-4 my-5">
+      <!-- Search -->
       <div class="search-container">
         <form
           class="d-flex gap-2"
@@ -30,6 +31,7 @@
         </form>
       </div>
 
+      <!-- Category Filter -->
       <form
         class="category-filter my-5"
         th:action="@{/games/searchByCategory}"
@@ -70,6 +72,53 @@
         </th:block>
       </div>
     </div>
+
+    <!-- MODALI DELETION FUORI DALLE CARD -->
+    <th:block th:each="game : ${games}">
+      <div
+        class="modal fade"
+        th:id="'delete-modal-' + ${game.id}"
+        tabindex="-1"
+        aria-labelledby="deleteModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content custom-modal-dark">
+            <div class="modal-header border-0">
+              <h5 class="modal-title text-lime" id="deleteModalLabel">
+                Conferma Eliminazione
+              </h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body text-white">
+              Sei sicuro di voler eliminare il gioco:
+              <strong th:text="${game.title}"></strong>?
+            </div>
+            <div class="modal-footer border-0">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Annulla
+              </button>
+              <form
+                th:action="@{/games/delete/{id}(id = ${game.id})}"
+                method="post"
+              >
+                <button type="submit" class="btn btn-lime">Conferma</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </th:block>
+
     <div th:replace="~{fragments/resources :: scripts}"></div>
   </body>
 </html>

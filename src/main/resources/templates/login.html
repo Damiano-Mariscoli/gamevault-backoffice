@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+  </head>
+  <body>
+    <div class="login-card">
+      <h2 class="text-center mb-4 text-lime">Accedi a GameVault</h2>
+
+      <form th:action="@{/login}" method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            id="username"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-lime w-100 mb-3">Login</button>
+
+        <p class="text-center text-danger" th:if="${param.error}">
+          Credenziali non valide
+        </p>
+        <p class="text-center text-success" th:if="${param.logout}">
+          Logout effettuato con successo
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

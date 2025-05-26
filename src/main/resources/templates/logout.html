@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Logout</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <link rel="stylesheet" th:href="@{/css/logout.css}" />
+  </head>
+  <body>
+    <div class="logout-card">
+      <h2 class="text-lime mb-4">Sei stato disconnesso correttamente</h2>
+      <a th:href="@{/login}" class="btn btn-lime">Torna al login</a>
+    </div>
+  </body>
+</html>
