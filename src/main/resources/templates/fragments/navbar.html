@@ -1,41 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Navbar</title>
   </head>
   <body>
     <nav
       th:fragment="navbar"
-      class="navbar navbar-expand navbar-light bg-light px-5"
+      class="navbar navbar-expand-lg px-5"
+      style="background-color: #2f312f; color: #a4ff00"
     >
-      <a class="navbar-brand" th:href="@{/}">Game Vault</a>
-      <div class="">
-        <ul class="nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/}"
-              >Home</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" th:href="@{/games}">Catalogo</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link active" th:href="@{/ingredienti}">Ingredienti</a>
-          </li> -->
-        </ul>
-      </div>
-      <div class="user-info ms-auto">
-        Logged user:
-        <span sec:authentication="name" class="fw-bold- me-2"></span>
-        Roles:
-        <span
-          sec:authentication="principal.authorities"
-          class="fst-italic me-2"
-        ></span>
-        <a class="btn btn-sm btn-outline-primary" href="/logout">Sign out</a>
+      <div class="container-fluid">
+        <a
+          class="navbar-brand fw-bold"
+          th:href="@{/}"
+          style="color: #a4ff00; font-size: 1.5rem"
+        >
+          Game Vault
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                th:href="@{/games}"
+                style="color: #a4ff00"
+                >Catalogo</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                th:href="@{/categories}"
+                style="color: #a4ff00"
+                >Categories</a
+              >
+            </li>
+          </ul>
+          <div class="user-info ms-auto d-flex align-items-center">
+            <span class="text-white me-2">Logged user:</span>
+            <span
+              sec:authentication="name"
+              class="fw-bold me-3 text-lime"
+              style="color: #a4ff00"
+            ></span>
+            <span class="text-white me-2">Roles:</span>
+            <span
+              sec:authentication="principal.authorities"
+              class="fst-italic me-3 text-lime"
+              style="color: #a4ff00"
+            ></span>
+            <a class="btn btn-outline-light btn-sm" href="/logout">Sign out</a>
+          </div>
+        </div>
       </div>
     </nav>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
   </body>
 </html>

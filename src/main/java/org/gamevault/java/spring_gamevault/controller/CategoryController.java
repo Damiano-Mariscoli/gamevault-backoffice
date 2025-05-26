@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
@@ -35,6 +35,14 @@ public class CategoryController {
    public String show(@PathVariable Integer id, Model model) {
        model.addAttribute("category", categoryRepo.findById(id).get());
        return "categories/show";
+   }
+
+     @GetMapping("/searchByCategory")
+   public String searchByTitle(@RequestParam() String name, Model model){
+
+    model.addAttribute("categories", categoryRepo.findByNameContaining(name));
+   
+    return "categories/index";
    }
 
 

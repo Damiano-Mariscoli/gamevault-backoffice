@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <title>Games</title>
   </head>
-  <body >
+  <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
     <div class="container">
       <div>[[${game.title}]]</div>
     </div>
     <div th:each="platform : ${game.platforms}">
       <h1 th:text="${platform.name}"></h1>
+    </div>
+    <div>
+      <ul>
+        <th:block></th:block>
+      </ul>
     </div>
     <div th:replace="~{fragments/resources :: scripts}"></div>
   </body>

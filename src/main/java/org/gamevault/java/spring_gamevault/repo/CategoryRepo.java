@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface CategoryRepo extends JpaRepository<Category, Integer> {
-
+public List<Category> findByNameContaining(String name);
 }
 

@@ -60,6 +60,7 @@ public class GameController {
      @GetMapping("/searchByTitle")
    public String searchByTitle(@RequestParam() String title, Model model){
     List <Game> games = gameRepo.findByTitleContaining(title);
+    model.addAttribute("categories", categoryRepo.findAll());
     model.addAttribute("games", games);
     return "games/index";
    }
@@ -67,6 +68,7 @@ public class GameController {
    @GetMapping("/searchByCategory")
    public String searchByCategory(@RequestParam() Integer id, Model model){
      List <Game> games = gameRepo.findByCategoriesId(id);
+     model.addAttribute("categories", categoryRepo.findAll());
      model.addAttribute("games", games);
      return "games/index";
    }
@@ -75,7 +77,7 @@ public class GameController {
    @GetMapping("/create")
    public String create(Model model){
      model.addAttribute("game", new Game());
-   
+     model.addAttribute("categories", categoryRepo.findAll());
      return "games/create-or-edit";
    }
 
@@ -93,6 +95,8 @@ public class GameController {
    @GetMapping("/edit/{id}")
    public String edit(@PathVariable Integer id, Model model) {
      model.addAttribute("game", gameRepo.findById(id).get());
+      model.addAttribute("categories", categoryRepo.findAll());
+      
      model.addAttribute("edit", true);
     
      return "games/create-or-edit";

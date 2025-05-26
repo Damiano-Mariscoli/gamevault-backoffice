@@ -2,45 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
-    <name>Create Pizza</name>
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/category.css}" />
+    <title>Create Category</title>
   </head>
   <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <main class="container" th:object="${category}">
+    <main class="container my-5 spacing p-5">
       <div class="row">
         <div class="col-12">
           <th:block>
             <h1 th:if="${edit}" class="text-center py-4 mb-2 fw-bold">
-               Modifica l'category "[[${category.name}]]"
+              Modifica la categoria "[[${category.name}]]"
             </h1>
-            <h1 th:unless="${edit}">
-                Crea nuovo category
-
+            <h1 th:unless="${edit}" class="text-center py-4 mb-2 fw-bold">
+              Crea nuova categoria
             </h1>
 
             <div class="row justify-content-center">
               <div class="col-8">
-                <form class="form" th:action="${edit} ? @{/ingredienti/edit/{id}(id = ${category.id})} : @{/categories/create}" th:object="${category}" method="post" id="formOfferta">
-                
-
+                <form
+                  class="form"
+                  th:action="${edit} ? @{/categories/edit/{id}(id = ${category.id})} : @{/categories/create}"
+                  th:object="${category}"
+                  method="post"
+                  id="formOfferta"
+                >
                   <div class="mb-3">
-                    <label class="form-lable" for="name">Nome category</label>
-                   <input class="form-control" type="text" th:field="${category.name}" name="name" th:errorClass="is-invalid">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
-                      <ul>
-                        <li th:each="error : ${#fields.errors('name')}" th:text="${error}" > </li>
+                    <label class="form-label" for="name">Nome categoria</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      th:field="*{name}"
+                      name="name"
+                      th:errorClass="is-invalid"
+                    />
+                    <div
+                      class="invalid-feedback"
+                      th:if="${#fields.hasErrors('name')}"
+                    >
+                      <ul class="mb-0">
+                        <li
+                          th:each="error : ${#fields.errors('name')}"
+                          th:text="${error}"
+                        ></li>
                       </ul>
                     </div>
                   </div>
-
-
-
-
                   <div class="my-3 d-flex justify-content-between">
-                   <input type="submit" class="btn btn-primary" value="Create new category">
-                   <input type="reset" class="btn btn-warning" value="Reset all fields" form="formPizza">
+                    <input
+                      type="submit"
+                      class="btn btn-primary"
+                      th:value="${edit} ? 'Modifica categoria' : 'Crea nuova categoria'"
+                    />
+                    <input
+                      type="reset"
+                      class="btn btn-warning"
+                      value="Reset campi"
+                      form="formOfferta"
+                    />
                   </div>
-
                 </form>
               </div>
             </div>
