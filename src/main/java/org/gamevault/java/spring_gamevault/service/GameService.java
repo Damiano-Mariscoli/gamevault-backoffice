@@ -84,4 +84,9 @@ public class GameService {
     public Boolean exist(Game game){
         return existById(game.getId());
     }
+
+
+    public List<Game> findByCategoriesId(Integer id){
+        return gameRepository.findByCategoriesId(id);
+    }
 }

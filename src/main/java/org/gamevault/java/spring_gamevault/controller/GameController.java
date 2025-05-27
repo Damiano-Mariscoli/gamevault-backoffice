@@ -3,15 +3,14 @@ package org.gamevault.java.spring_gamevault.controller;
 
 
 import java.util.List;
-import java.util.Locale.Category;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.gamevault.java.spring_gamevault.model.Game;
 
 import org.gamevault.java.spring_gamevault.repo.CategoryRepo;
-import org.gamevault.java.spring_gamevault.repo.GameRepo;
 
+import org.gamevault.java.spring_gamevault.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +31,7 @@ public class GameController {
     
 
     @Autowired
-    private GameRepo gameRepo;
+    private GameService gameService;
 
 
     @Autowired
@@ -40,7 +39,7 @@ public class GameController {
 
     @GetMapping
     public String index(Model model){
-        List <Game> games = gameRepo.findAll();
+        List <Game> games = gameService.findAll();
         model.addAttribute("games", games);
         model.addAttribute("categories", categoryRepo.findAll());
         return "games/index";
@@ -48,14 +47,14 @@ public class GameController {
 
     @GetMapping("/{id}")
     public String show(Model model, @PathVariable Integer id ){
-        Game game = gameRepo.findById(id).get(); 
+        Game game = gameService.findById(id).get(); 
         model.addAttribute("game", game);
         return "games/show";
     }
     
      @GetMapping("/searchByTitle")
    public String searchByTitle(@RequestParam() String title, Model model){
-    List <Game> games = gameRepo.findByTitleContaining(title);
+    List <Game> games = gameService.finByTitle(title);
     model.addAttribute("categories", categoryRepo.findAll());
     model.addAttribute("games", games);
     return "games/index";
@@ -64,7 +63,7 @@ public class GameController {
    @GetMapping("/searchByCategory")
    public String searchByCategory(@RequestParam() Integer id, Model model){
     
-     List <Game> games = gameRepo.findByCategoriesId(id);
+     List <Game> games = gameService.findByCategoriesId(id);
      model.addAttribute("categories", categoryRepo.findAll());
      model.addAttribute("games", games);
      return "games/index";
@@ -85,13 +84,13 @@ public class GameController {
     if (bindingResult.hasErrors()){
       return "games/create-or-edit";
     }
-    gameRepo.save(formGame);
+    gameService.create(formGame);
      return "redirect:/games";
    }
 
    @GetMapping("/edit/{id}")
    public String edit(@PathVariable Integer id, Model model) {
-     model.addAttribute("game", gameRepo.findById(id).get());
+     model.addAttribute("game", gameService.findById(id).get());
       model.addAttribute("categories", categoryRepo.findAll());
       
      model.addAttribute("edit", true);
@@ -106,13 +105,13 @@ public class GameController {
     if (bindingResult.hasErrors()){
       return "games/create-or-edit";
     }
-    gameRepo.save(formGame);
+    gameService.update(formGame);
      return "redirect:/games";
    }
 
    @PostMapping("/delete/{id}")
    public String delete(@PathVariable Integer id){
-    gameRepo.deleteById(id);
+    gameService.deleteById(id);
     return "redirect:/games";
    }
 

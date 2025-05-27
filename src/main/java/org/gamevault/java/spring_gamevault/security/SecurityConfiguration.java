@@ -27,8 +27,10 @@ SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .requestMatchers("/games", "/games/**").hasAnyAuthority("USER", "ADMIN")
             .requestMatchers("/games/create", "/games/edit/**", "/categories/**").hasAuthority("ADMIN")
             .requestMatchers("/games/**").hasAnyAuthority("USER", "ADMIN")
-            .requestMatchers("/css/**").permitAll() // aggiunta della regola del CSS
-            .anyRequest().authenticated() // require authentication for all requests
+            .requestMatchers("/css/**").permitAll()
+            .requestMatchers("/api/**").permitAll()
+            .anyRequest().authenticated()
+            
         )
         .formLogin(form -> form
             .loginPage("/login")
@@ -43,7 +45,8 @@ SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .deleteCookies("JSESSIONID")
             .permitAll()
         )
-        .exceptionHandling();
+        .exceptionHandling()
+        .and().csrf().disable();
     return http.build();
 }
     @Bean

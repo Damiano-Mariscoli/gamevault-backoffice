@@ -4,20 +4,17 @@
     <div th:replace="~{fragments/resources :: headTags}"></div>
 
     <link rel="stylesheet" th:href="@{/css/card.css}" />
-
     <link rel="stylesheet" th:href="@{/css/global.css}" />
     <link rel="stylesheet" th:href="@{/css/nav.css}" />
     <link rel="stylesheet" th:href="@{/css/index.css}" />
 
     <title th:text="'Dettaglio - ' + ${game.title}">Dettaglio Gioco</title>
-
-    <div th:replace="~{fragments/resources :: headTags}"></div>
   </head>
 
   <body class="bg-dark text-white">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="container my-5">
+    <div class="container my-5 spacing py-5">
       <!-- Header con immagine e titolo -->
       <div class="row align-items-center mb-4">
         <div class="col-md-5 text-center">
@@ -51,6 +48,20 @@
         <p class="text-white-50 fs-5" th:text="${game.description}">
           Descrizione del gioco...
         </p>
+      </div>
+
+      <!-- Categorie -->
+      <div class="mb-4">
+        <h4 class="text-lime">Categorie</h4>
+        <div class="d-flex flex-wrap gap-2">
+          <span
+            class="badge bg-lime px-3 py-2 text-white-50 fs-5"
+            th:each="category : ${game.categories}"
+            th:text="${category.name}"
+          >
+            Categoria
+          </span>
+        </div>
       </div>
     </div>
 

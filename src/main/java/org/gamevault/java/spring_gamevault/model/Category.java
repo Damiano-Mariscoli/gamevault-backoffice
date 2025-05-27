@@ -2,7 +2,7 @@ package org.gamevault.java.spring_gamevault.model;
 
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +24,7 @@ public class Category {
     @NotNull
     private String name;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "categories")
     private List <Game> games;
 
