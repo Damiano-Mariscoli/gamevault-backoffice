@@ -35,12 +35,14 @@
           </h5>
           <div class="d-flex justify-content-between gap-2 mt-auto">
             <a
+              sec:authorize="hasAuthority('ADMIN')"
               th:href="@{/games/edit/{id}(id = ${game.id})}"
               class="btn btn-outline-secondary btn-sm rounded-pill w-100"
             >
               Edit
             </a>
             <button
+              sec:authorize="hasAuthority('ADMIN')"
               type="button"
               class="btn btn-danger btn-sm"
               data-bs-toggle="modal"

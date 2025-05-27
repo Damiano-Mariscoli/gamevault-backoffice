@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <link rel="stylesheet" th:href="@{/css/global.css}" />
     <div th:replace="~{fragments/resources :: headTags}"></div>
-    <title>Games</title>
+
+    <link rel="stylesheet" th:href="@{/css/card.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+
+    <title th:text="'Dettaglio - ' + ${game.title}">Dettaglio Gioco</title>
+
+    <div th:replace="~{fragments/resources :: headTags}"></div>
   </head>
-  <body>
+
+  <body class="bg-dark text-white">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <div class="container">
-      <div>[[${game.title}]]</div>
+
+    <div class="container my-5">
+      <!-- Header con immagine e titolo -->
+      <div class="row align-items-center mb-4">
+        <div class="col-md-5 text-center">
+          <img
+            th:src="@{/images/elden.webp}"
+            alt="Copertina gioco"
+            class="img-fluid rounded shadow-lg border border-lime"
+            style="max-height: 400px; object-fit: cover"
+          />
+        </div>
+        <div class="col-md-7">
+          <h1 class="display-4 text-lime" th:text="${game.title}">Titolo</h1>
+          <p
+            class="lead text-white-50"
+            th:text="'Pubblicato da: ' + ${game.publisher}"
+          >
+            Publisher
+          </p>
+          <p>
+            <strong class="text-lime">Data di uscita:</strong>
+            <span
+              th:text="${#temporals.format(game.releaseDate, 'dd/MM/yyyy')}"
+            ></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Descrizione -->
+      <div class="mb-5">
+        <h4 class="text-lime">Descrizione</h4>
+        <p class="text-white-50 fs-5" th:text="${game.description}">
+          Descrizione del gioco...
+        </p>
+      </div>
     </div>
-    <div th:each="platform : ${game.platforms}">
-      <h1 th:text="${platform.name}"></h1>
-    </div>
-    <div>
-      <ul>
-        <th:block></th:block>
-      </ul>
-    </div>
+
     <div th:replace="~{fragments/resources :: scripts}"></div>
   </body>
 </html>

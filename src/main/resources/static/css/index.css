@@ -88,3 +88,6 @@ h1, hr {
     background-color: #333;
 }
 
+.modal-backdrop{
+  --bs-backdrop-zindex: 0;
+}

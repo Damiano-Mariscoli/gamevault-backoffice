@@ -41,9 +41,7 @@ private String publisher;
 
 private String gameImg;
  
-@ManyToMany
-@JoinTable(name = "game_platform" , joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name="platform_id"))
-private List <Platform> platforms;
+
 
 
 @ManyToMany
@@ -141,22 +139,6 @@ private List <Category> categories;
         this.gameImg = gameImg;
     }
     
-
-
-    /**
-     * @return List<Platform> return the platforms
-     */
-    public List<Platform> getPlatforms() {
-        return platforms;
-    }
-
-    /**
-     * @param platforms the platforms to set
-     */
-    public void setPlatforms(List<Platform> platforms) {
-        this.platforms = platforms;
-    }
-
     /**
      * @return List<Category> return the categories
      */

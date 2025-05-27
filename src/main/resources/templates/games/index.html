@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/card.css}" />
     <link rel="stylesheet" th:href="@{/css/index.css}" />
     <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav.css}" />
 
     <title>Games</title>
   </head>
@@ -26,8 +27,13 @@
             class="form-control"
             placeholder="Cerca gioco nel catalogo..."
           />
-          <button type="submit" class="btn btn-primary">Cerca</button>
-          <a class="btn btn-primary" th:href="@{games/create}">Add</a>
+          <button type="submit" class="btn btn-primary btn-lime">Cerca</button>
+          <a
+            sec:authorize="hasAuthority('ADMIN')"
+            class="btn btn-primary btn-lime"
+            th:href="@{games/create}"
+            >Add</a
+          >
         </form>
       </div>
 
@@ -37,7 +43,7 @@
         th:action="@{/games/searchByCategory}"
         method="get"
       >
-        <button type="submit" class="btn btn-primary mb-3">
+        <button type="submit" class="btn btn-primary mb-3 btn-lime">
           Filtra per Categoria
         </button>
 

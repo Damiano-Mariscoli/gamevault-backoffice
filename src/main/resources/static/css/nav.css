@@ -31,7 +31,6 @@ nav a:hover {
 }
 
 
-
 /* Responsività per schermi più piccoli */
 @media (max-width: 768px) {
     nav {
@@ -43,4 +42,25 @@ nav a:hover {
         padding: 8px 15px;
     }
 
+}
+
+
+
+
+.modal-backdrop{
+  --bs-backdrop-zindex: 0 !important;
+}
+
+.modal-content {
+    background-color:#1e1e1e !important;
+}
+
+.btn-lime {
+  background-color: #aaff00 !important;
+  color: black !important;
+  border: none !important;
+}
+.btn-lime:hover {
+  background-color: lime    !important;
+  color: black !important;
 }

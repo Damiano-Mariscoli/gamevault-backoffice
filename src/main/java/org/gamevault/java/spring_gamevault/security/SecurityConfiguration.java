@@ -14,20 +14,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Bean
+@Bean
 @SuppressWarnings("removal")
 SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/pizzas/create", "/pizzas/edit/**", "/pizzas/*/offerta").hasAnyAuthority("ADMIN")
-            .requestMatchers(HttpMethod.POST, "/pizzas/**").hasAnyAuthority("ADMIN")
-            .requestMatchers("/ingredienti/create").hasAnyAuthority("ADMIN")
-            .requestMatchers("/ingredienti/*").hasAnyAuthority("USER", "ADMIN")
-            .requestMatchers("/ingredienti/*/**").hasAnyAuthority("ADMIN")
-            .requestMatchers("/offerte/**").hasAnyAuthority("ADMIN")
-            .requestMatchers("/pizzas", "/pizzas/**").hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers("/games/create", "/games/edit/**", "/games/*/category").hasAnyAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/games/**").hasAnyAuthority("ADMIN")
+            .requestMatchers("/categories/create").hasAnyAuthority("ADMIN")
+            .requestMatchers("/categories/*").hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers("/categories/*/**").hasAnyAuthority("ADMIN")
+            .requestMatchers("/games", "/games/**").hasAnyAuthority("USER", "ADMIN")
             .requestMatchers("/games/create", "/games/edit/**", "/categories/**").hasAuthority("ADMIN")
             .requestMatchers("/games/**").hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers("/css/**").permitAll() // aggiunta della regola del CSS
             .anyRequest().authenticated() // require authentication for all requests
         )
         .formLogin(form -> form
@@ -38,7 +38,7 @@ SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         )
         .logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/") // redirect to home after logout
+            .logoutSuccessUrl("/login") // redirect to home after logout
             .invalidateHttpSession(true)
             .deleteCookies("JSESSIONID")
             .permitAll()
@@ -46,7 +46,6 @@ SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         .exceptionHandling();
     return http.build();
 }
-
     @Bean
     @SuppressWarnings("deprecation")
     DaoAuthenticationProvider authenticationProvider() {

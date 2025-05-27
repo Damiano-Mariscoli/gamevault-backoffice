@@ -11,7 +11,7 @@ import org.gamevault.java.spring_gamevault.model.Game;
 
 import org.gamevault.java.spring_gamevault.repo.CategoryRepo;
 import org.gamevault.java.spring_gamevault.repo.GameRepo;
-import org.gamevault.java.spring_gamevault.repo.PlatformRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +36,6 @@ public class GameController {
 
 
     @Autowired
-    private PlatformRepo platformRepo;
-
-    @Autowired
     private CategoryRepo categoryRepo;
 
     @GetMapping
@@ -53,7 +50,6 @@ public class GameController {
     public String show(Model model, @PathVariable Integer id ){
         Game game = gameRepo.findById(id).get(); 
         model.addAttribute("game", game);
-        model.addAttribute("platforms" , platformRepo.findAll());
         return "games/show";
     }
     

@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <div th:replace="~{fragments/resources :: headTags}"></div>
+   
+      <div th:replace="~{fragments/resources :: headTags}"></div>
+
+    <link rel="stylesheet" th:href="@{/css/card.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
     <link rel="stylesheet" th:href="@{/css/global.css}" />
+
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Navbar</title>
@@ -43,7 +49,7 @@
               >
             </li>
             <li class="nav-item">
-              <a
+              <a sec:authorize="hasAuthority('ADMIN')"
                 class="nav-link active"
                 th:href="@{/categories}"
                 style="color: #a4ff00"
@@ -52,7 +58,9 @@
             </li>
           </ul>
           <div class="user-info ms-auto d-flex align-items-center">
-            <span class="text-white me-2">Logged user:</span>
+
+            <div sec:authorize="hasAuthority('ADMIN')">
+                 <span sec:authorize="hasAuthority('ADMIN')" class="text-white me-2">Logged user:</span>
             <span
               sec:authentication="name"
               class="fw-bold me-3 text-lime"
@@ -66,9 +74,57 @@
                 style="color: #a4ff00"
               >
               </span>
-            </span>
-            <a class="btn btn-outline-light btn-sm" href="/logout">Sign out</a>
+            </div>
+           
+                <!-- Bottone per aprire il modale -->
+                <button type="button" class="btn btn-lime" data-bs-toggle="modal" data-bs-target="#logoutModal" >
+                  Logout
+                </button>
+
+                <!-- Modale -->
+                  <div
+      class="modal fade"
+      th:id="logoutModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal-dark">
+          <div class="modal-header border-0">
+            <h5 class="modal-title text-lime" id="deleteModalLabel">
+              Conferma Eliminazione
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
+          <div class="modal-body text-white">
+            Sei sicuro di voler eliminare il gioco:
+            <strong></strong>?
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annulla
+            </button>
+            <form th:action="@{/logout}" method="post">
+              <button type="submit" class="btn btn-lime">Conferma</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+                
+
+
         </div>
       </div>
     </nav>
