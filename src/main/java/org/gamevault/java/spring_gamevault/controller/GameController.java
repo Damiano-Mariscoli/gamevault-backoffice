@@ -94,8 +94,9 @@ public class GameController {
 
    @GetMapping("/edit/{id}")
    public String edit(@PathVariable Integer id, Model model) {
+    model.addAttribute("categories", categoryRepo.findAll());
      model.addAttribute("game", gameService.findById(id).get());
-      model.addAttribute("categories", categoryRepo.findAll());
+      
       
      model.addAttribute("edit", true);
     
@@ -107,6 +108,8 @@ public class GameController {
 
      
     if (bindingResult.hasErrors()){
+       model.addAttribute("edit", true);
+       model.addAttribute("categories", categoryRepo.findAll());
       return "games/create-or-edit";
     }
     gameService.update(formGame);

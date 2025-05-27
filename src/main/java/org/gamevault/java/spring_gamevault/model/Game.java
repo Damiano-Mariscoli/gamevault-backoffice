@@ -33,7 +33,7 @@ private String title;
 @Lob
 private String description;
 
-@NotNull
+
 private LocalDate  releaseDate;
 
 @NotNull

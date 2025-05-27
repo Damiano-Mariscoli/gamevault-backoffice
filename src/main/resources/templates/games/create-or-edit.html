@@ -107,8 +107,8 @@
 
 
                   <div class="my-3 d-flex justify-content-between">
-                   <input type="submit" class="btn btn-primary btn-lime" value="Create new game">
-                   <input type="reset" class="btn btn-warning" value="Reset all fields" form="formPizza">
+                    <input type="submit" class="btn btn-primary btn-lime" th:value="${edit} ? 'Edit the game' : 'Create new game'">
+                  <button type="reset" class="btn btn-warning" form="formGame">Reset all fields</button>
                   </div>
 
                 </form>
