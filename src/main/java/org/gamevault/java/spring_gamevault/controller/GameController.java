@@ -1,15 +1,13 @@
 package org.gamevault.java.spring_gamevault.controller;
 
-
-
 import java.util.List;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.gamevault.java.spring_gamevault.model.Category;
 import org.gamevault.java.spring_gamevault.model.Game;
-
 import org.gamevault.java.spring_gamevault.repo.CategoryRepo;
-
+import org.gamevault.java.spring_gamevault.service.CategoryService;
 import org.gamevault.java.spring_gamevault.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 
-
 @Controller
 @RequestMapping("/games")
 public class GameController {
+
+  @Autowired
+    private final CategoryService categoryService;
 
     
 
@@ -36,6 +36,10 @@ public class GameController {
 
     @Autowired
     private CategoryRepo categoryRepo;
+
+    GameController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping
     public String index(Model model){
@@ -111,7 +115,17 @@ public class GameController {
 
    @PostMapping("/delete/{id}")
    public String delete(@PathVariable Integer id){
-    gameService.deleteById(id);
+    
+
+    Game game = gameService.getById(id);
+
+       game.getCategories().clear();
+    
+    // Delete the game
+    gameService.delete(game);
+
+
+   
     return "redirect:/games";
    }
 
