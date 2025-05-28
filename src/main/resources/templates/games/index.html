@@ -42,14 +42,13 @@
         class="category-filter my-5"
         th:action="@{/games/searchByCategory}"
         method="get"
+        onsubmit="return validateForm()"
       >
         <button type="submit" class="btn btn-primary mb-3 btn-lime">
           Filtra per Categoria
         </button>
 
         <div class="category-checkbox-container">
-          <input type="hidden" name="id" value="0" />
-
           <div class="form-check" th:each="category : ${categories}">
             <input
               class="form-check-input"
@@ -128,5 +127,22 @@
     </th:block>
 
     <div th:replace="~{fragments/resources :: scripts}"></div>
+    <script>
+      function validateForm() {
+        let checkboxes = document.getElementsByName("id");
+        let checked = false;
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            checked = true;
+            break;
+          }
+        }
+        if (!checked) {
+          alert("Seleziona almeno una categoria");
+          return false;
+        }
+        return true;
+      }
+    </script>
   </body>
 </html>
